@@ -5,30 +5,24 @@
 # 
 # -------------------------------------------------------------------------------------------------
 
-# packages ----------------------------------------------------------------------------------------
+# setup -------------------------------------------------------------------------------------------
 
 import argparse 
 import time
 
-# prepare data ------------------------------------------------------------------------------------
-
-print("\nStarting Script") 
-print("---" * 40)
-start_time = time.time()
-
-## define script arguments 
 parser = argparse.ArgumentParser() 
 parser.add_argument("-d", "--data", help="path to txt file of lock rotations")
 args = parser.parse_args() 
 
-## read in rotations
 with open(args.data, "r") as file: 
     rotations = file.readlines()
-
 rotations = [r.replace("\n", "") for r in rotations]
 
+print("\nStarting Script\n" + "---" * 40) 
+start_time = time.time()
 
-# perform rotations -------------------------------------------------------------------------------
+
+# part 1 ------------------------------------------------------------------------------------------
 
 ## convert each rotation to numeric (left = negative, right = positive) 
 directions = [r[0] for r in rotations] 
@@ -53,7 +47,9 @@ for r in numeric_rotations:
 
 print(f"Puzzle #1: {zero_counter}")
 
-## iterate over rotations with puzzle #2 logic (passing over 0 increases counter by 1) 
+
+# part 2 ------------------------------------------------------------------------------------------
+
 zero_counter = 0 
 position = 50 
 
@@ -85,6 +81,9 @@ for r in numeric_rotations:
     position = end
 
 print(f"Puzzle #2: {zero_counter}")
+
+
+# wrapup ------------------------------------------------------------------------------------------
 
 end_time = time.time() 
 
