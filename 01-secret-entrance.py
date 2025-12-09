@@ -8,16 +8,21 @@
 # packages ----------------------------------------------------------------------------------------
 
 import argparse 
+import time
 
 # prepare data ------------------------------------------------------------------------------------
 
+print("\nStarting Script") 
+print("---" * 40)
+start_time = time.time()
+
 ## define script arguments 
 parser = argparse.ArgumentParser() 
-parser.add_argument("-c", "--config", help="path to txt file of lock rotations")
+parser.add_argument("-d", "--data", help="path to txt file of lock rotations")
 args = parser.parse_args() 
 
 ## read in rotations
-with open(args.config, "r") as file: 
+with open(args.data, "r") as file: 
     rotations = file.readlines()
 
 rotations = [r.replace("\n", "") for r in rotations]
@@ -52,19 +57,36 @@ print(f"Puzzle #1: {zero_counter}")
 zero_counter = 0 
 position = 50 
 
-just_swapped = False
+just_passed = False
 for r in numeric_rotations: 
-    if (position == 0) and (just_swapped) and (r < 0): 
-        zero_counter -= 1
-    position += r
-    just_swapped = False
-    while (position < 0): 
-        position += 100 
+
+    ## reduce rotation to scale of -99 to 99
+    while (r > 100): 
+        r -= 100 
         zero_counter += 1
-        just_swapped = True
-    while (position > 99): 
-        position -= 100 
-        zero_counter += 1 
-        just_swapped = True
+    while (r < -100): 
+        r += 100 
+        zero_counter += 1
+    
+    ## apply final rotation
+    end = position + r 
+    
+    ## update zero counter + rotation if passing zero
+    if (end == 0): 
+        zero_counter += 1
+    elif (end >= 100): 
+        zero_counter += 1
+        end = end % 100 
+    elif (end < 0): 
+        if (position != 0): 
+            zero_counter += 1 
+        end = end % 100 
+
+    position = end
 
 print(f"Puzzle #2: {zero_counter}")
+
+end_time = time.time() 
+
+print("---" * 40) 
+print(f"Script Execution Time: {end_time - start_time:.04f}s\n")
