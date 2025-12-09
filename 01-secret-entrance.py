@@ -1,7 +1,7 @@
 # README ------------------------------------------------------------------------------------------
 # 
 #   file: 01-secret-entrance.py
-#   desc: code for first challenge of Advent of Code 2025 
+#   desc: day 1 (parts 1 and 2) of advent of code 2025 https://adventofcode.com/2025/day/1
 # 
 # -------------------------------------------------------------------------------------------------
 
