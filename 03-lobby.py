@@ -44,3 +44,44 @@ print(f"Puzzle #1: {final_joltage}")
 
 
 # part 2 ------------------------------------------------------------------------------------------
+
+## if joltages are always 12 digits long, we can take advantage of digit position to determine max
+## for example, if bank is 18 digits long, we know first digit is max of possible first digits (0-6)
+
+results = [] 
+start_index = 0
+
+for bank in banks: 
+
+    start_index = 0
+    joltage = "" 
+
+    for p in range(12): 
+
+        candidate_digits = bank[start_index:len(bank)-(11-p)]
+
+        max_digit = -1 
+        max_index = -1 
+
+        for index, digit in enumerate(candidate_digits): 
+            digit = int(digit)
+            if (digit > max_digit): 
+                max_digit = digit 
+                max_index = start_index + index 
+
+        joltage += str(max_digit) 
+        start_index = max_index + 1
+
+    results.append(int(joltage))
+
+final_joltage = sum(results)
+
+print(f"Puzzle #2: {final_joltage}")
+
+
+# wrapup ------------------------------------------------------------------------------------------
+
+end_time = time.time() 
+
+print("---" * 40) 
+print(f"Script Execution Time: {end_time - start_time:.04f}s\n")
