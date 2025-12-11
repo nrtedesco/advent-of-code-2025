@@ -8,7 +8,6 @@
 # setup -------------------------------------------------------------------------------------------
 
 import argparse
-import csv 
 import time 
 
 parser = argparse.ArgumentParser() 
